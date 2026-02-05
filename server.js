@@ -76,5 +76,5 @@ app.get('/api/registrations', (req, res) => {
 
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
-    console.log(`Access at http://localhost:${PORT}/websitemockup.html`);
+    console.log(`Access at http://localhost:${PORT}/index.html`);
 });
