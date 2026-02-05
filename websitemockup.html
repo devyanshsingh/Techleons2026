@@ -1,0 +1,2854 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Techleons 2026 | Stranger Things Edition</title>
+    <style>
+        /* --- IMPORTS & VARIABLES --- */
+        @import url('https://fonts.googleapis.com/css2?family=Creepster&family=Courier+Prime:wght@400;700&family=Rubik+Glitch&family=Grenze:ital,wght@0,700;0,800;1,700&display=swap');
+
+        /* Local Stranger Things Font */
+        @font-face {
+            font-family: 'StrangerFont';
+            src: url('./Benguiat Bold.ttf') format('truetype');
+            font-weight: bold;
+            font-style: normal;
+        }
+
+        :root {
+            --stranger-red: #ff1212;
+            --neon-blue: #00f7ff;
+            --void-black: #050505;
+            --smoke: #131313;
+            --dust-white: rgba(220, 220, 220, 0.6);
+            --crt-green: rgba(18, 255, 18, 0.1);
+        }
+
+        /* ... existing styles ... */
+
+        /* --- STRANGER THINGS LOGO STYLE --- */
+        .glow-text {
+            font-family: 'StrangerFont', 'Grenze', serif;
+            color: transparent;
+            -webkit-text-stroke: 2px var(--stranger-red);
+            text-shadow:
+                0 0 15px rgba(255, 18, 18, 0.9),
+                0 0 30px rgba(255, 18, 18, 0.6),
+                0 0 50px rgba(255, 18, 18, 0.4);
+            animation: flicker 4s infinite alternate;
+            position: relative;
+            display: inline-block;
+            letter-spacing: 0px;
+            transform: scaleY(1.0);
+            padding: 0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        html,
+        body {
+            cursor: none;
+        }
+
+        /* --- MIND FLAYER / SMOKE CURSOR --- */
+        #mindflayer-cursor {
+            position: fixed;
+            pointer-events: none;
+            z-index: 10000;
+            /* Top most */
+            left: 0;
+            top: 0;
+            width: 400px;
+            /* Larger area for smoke */
+            height: 400px;
+            margin-left: -200px;
+            margin-top: -200px;
+            transform: translate(var(--cursor-x, 0px), var(--cursor-y, 0px));
+            transition: none;
+            will-change: transform;
+            mix-blend-mode: normal;
+            /* Normal blend mode for maximum visibility */
+        }
+
+
+
+        /* Distinct Pointer Core */
+        .cursor-core {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 14px;
+            height: 14px;
+            margin-left: -7px;
+            margin-top: -7px;
+            background: rgba(255, 0, 0, 0.4);
+            /* Much lower opacity */
+            border-radius: 50%;
+            box-shadow: 0 0 5px rgba(255, 0, 0, 0.3), 0 0 10px rgba(255, 0, 0, 0.2);
+            z-index: 10001;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            /* High contrast center */
+        }
+
+        /* Flashlight Effect - Moving Gradient on Body - Stronger */
+        body {
+            background-color: var(--void-black);
+            color: #dcdcdc;
+            font-family: 'Courier Prime', monospace;
+            overflow-x: hidden;
+            /* Toned down flashlight: barely visible background glow */
+            background-image: radial-gradient(circle 350px at var(--cursor-x, 50%) var(--cursor-y, 50%), rgba(30, 10, 10, 0.5) 0%, #050505 100%);
+            background-attachment: fixed;
+        }
+
+        /* --- CHRISTMAS LIGHTS --- */
+        .lights-wire {
+            position: absolute;
+            top: -30px;
+            left: -5%;
+            width: 110%;
+            height: 60px;
+            border-bottom: 2px solid #222;
+            border-radius: 50%;
+            z-index: 5;
+            pointer-events: none;
+        }
+
+        .light-bulb {
+            position: absolute;
+            top: 60px;
+            /* Hanging from wire */
+            width: 12px;
+            height: 24px;
+            border-radius: 50% 50% 40% 40%;
+            background: #444;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+            animation-duration: 2s;
+            animation-iteration-count: infinite;
+            animation-timing-function: ease-in-out;
+            transform-origin: top center;
+        }
+
+        .light-bulb::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: 3px;
+            width: 6px;
+            height: 6px;
+            background: #222;
+            /* Socket */
+        }
+
+        @keyframes blink-red {
+
+            0%,
+            100% {
+                background: #500;
+                box-shadow: 0 0 0 #500;
+                opacity: 0.3;
+            }
+
+            50% {
+                background: #f00;
+                box-shadow: 0 0 20px #f00;
+                opacity: 1;
+            }
+        }
+
+        @keyframes blink-blue {
+
+            0%,
+            100% {
+                background: #005;
+                box-shadow: 0 0 0 #005;
+                opacity: 0.3;
+            }
+
+            50% {
+                background: #00f;
+                box-shadow: 0 0 20px #00f;
+                opacity: 1;
+            }
+        }
+
+        @keyframes blink-yellow {
+
+            0%,
+            100% {
+                background: #550;
+                box-shadow: 0 0 0 #550;
+                opacity: 0.3;
+            }
+
+            50% {
+                background: #ff0;
+                box-shadow: 0 0 20px #ff0;
+                opacity: 1;
+            }
+        }
+
+        @keyframes blink-green {
+
+            0%,
+            100% {
+                background: #050;
+                box-shadow: 0 0 0 #050;
+                opacity: 0.3;
+            }
+
+            50% {
+                background: #0f0;
+                box-shadow: 0 0 20px #0f0;
+                opacity: 1;
+            }
+        }
+
+        /* --- CRT EFFECT OVERLAY --- */
+        body::before {
+            content: " ";
+            display: block;
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%),
+                linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            z-index: 999;
+            background-size: 100% 2px, 3px 100%;
+            pointer-events: none;
+        }
+
+        /* --- UTILITIES --- */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        h1,
+        h2,
+        h3 {
+            font-family: 'Grenze', serif;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+
+
+        /* --- NAVIGATION --- */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 2rem;
+            background: rgba(0, 0, 0, 0.9);
+            border-bottom: 2px solid var(--stranger-red);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            color: var(--stranger-red);
+            font-weight: 800;
+            font-family: 'Grenze', serif;
+            text-shadow: 0 0 5px var(--stranger-red);
+            letter-spacing: 2px;
+        }
+
+        .nav-links {
+            display: flex;
+        }
+
+        .nav-links a.cursor-reacts {
+            transition: text-shadow 0.3s ease, color 0.3s ease;
+        }
+
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            margin-left: 2rem;
+            font-size: 0.9rem;
+            transition: 0.3s;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--stranger-red);
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover {
+            color: var(--stranger-red);
+            text-shadow: 0 0 8px var(--stranger-red);
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            height: 95vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            padding: 1rem;
+        }
+
+        .hero h1 {
+            font-size: clamp(3.5rem, 12vw, 8.5rem);
+            line-height: 0.85;
+            margin-bottom: 1rem;
+            font-weight: 800;
+        }
+
+        /* --- COUNTDOWN (Stranger Things style) --- */
+        .countdown {
+            display: flex;
+            gap: 1rem;
+            margin: 1.5rem 0 2rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .countdown-unit {
+            background: rgba(0, 0, 0, 0.7);
+            border: 2px solid var(--stranger-red);
+            padding: 1rem 1.5rem;
+            min-width: 90px;
+            box-shadow:
+                0 0 15px rgba(255, 18, 18, 0.3),
+                inset 0 0 20px rgba(255, 18, 18, 0.05);
+            position: relative;
+        }
+
+        .countdown-unit::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(180deg, transparent 50%, rgba(255, 18, 18, 0.03) 100%);
+            pointer-events: none;
+        }
+
+        .countdown-value {
+            font-family: 'Courier Prime', monospace;
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 700;
+            color: var(--stranger-red);
+            text-shadow: 0 0 10px rgba(255, 18, 18, 0.8);
+            display: block;
+            line-height: 1;
+        }
+
+        .countdown-label {
+            font-size: 0.65rem;
+            letter-spacing: 3px;
+            color: var(--neon-blue);
+            margin-top: 0.4rem;
+            font-family: 'Courier Prime', monospace;
+            text-transform: uppercase;
+        }
+
+        .countdown-subtitle {
+            font-size: 0.75rem;
+            color: #666;
+            letter-spacing: 4px;
+            margin-top: 0.5rem;
+            font-family: 'Courier Prime', monospace;
+        }
+
+        .hero p {
+            font-size: clamp(1rem, 2vw, 1.5rem);
+            max-width: 800px;
+            margin-bottom: 3rem;
+            color: #aaa;
+            letter-spacing: 5px;
+            font-family: 'Courier Prime', monospace;
+        }
+
+        /* --- BUTTONS --- */
+        .btn {
+            padding: 1.2rem 2.5rem;
+            background: transparent;
+            border: 2px solid var(--stranger-red);
+            color: var(--stranger-red);
+            font-family: 'Courier Prime', monospace;
+            font-weight: bold;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            text-transform: uppercase;
+            box-shadow: 0 0 15px rgba(255, 18, 18, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn:hover {
+            background: var(--stranger-red);
+            color: #000;
+            box-shadow: 0 0 40px var(--stranger-red);
+            transform: scale(1.05);
+        }
+
+        /* --- INFO BAR --- */
+        .info-bar {
+            background: var(--smoke);
+            padding: 2rem 1rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            border-top: 1px solid #333;
+            border-bottom: 1px solid #333;
+            text-align: center;
+        }
+
+        .info-item h3 {
+            color: var(--neon-blue);
+            font-family: 'Courier Prime', monospace;
+            margin-bottom: 0.5rem;
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+        }
+
+        .info-item p {
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        /* --- ABOUT SECTIONS (Tabbed Dossiers) --- */
+        .about-sections {
+            padding: 2rem 2rem 2.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .dossier-tabs {
+            display: flex;
+            gap: 0;
+            margin-bottom: 0;
+            border-bottom: 2px solid #333;
+            overflow-x: auto;
+        }
+
+        .dossier-tab {
+            padding: 1.2rem 2.2rem;
+            background: #0a0a0a;
+            border: 1px solid #333;
+            border-bottom: none;
+            color: #666;
+            font-family: 'Courier Prime', monospace;
+            font-size: 0.85rem;
+            letter-spacing: 3px;
+            cursor: pointer;
+            transition: 0.3s;
+            white-space: nowrap;
+        }
+
+        .dossier-tab:hover {
+            color: var(--neon-blue);
+            border-color: #444;
+        }
+
+        .dossier-tab.active {
+            background: rgba(17, 17, 17, 0.95);
+            color: var(--stranger-red);
+            border-color: var(--stranger-red);
+            box-shadow: 0 -2px 15px rgba(255, 18, 18, 0.2);
+        }
+
+        .dossier-panel {
+            display: none;
+            background: linear-gradient(135deg, rgba(10, 0, 0, 0.98) 0%, rgba(17, 17, 17, 0.98) 100%);
+            border: 1px solid #333;
+            border-top: 3px solid var(--stranger-red);
+            padding: 0;
+            animation: dossierReveal 0.5s ease;
+            min-height: 420px;
+        }
+
+        .dossier-panel.active {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        @keyframes dossierReveal {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .dossier-content {
+            display: flex;
+            flex-wrap: wrap;
+            width: 100%;
+        }
+
+        .dossier-photo {
+            flex: 1;
+            min-width: 320px;
+            min-height: 380px;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, #0a0505 0%, #1a0a0a 50%, #0d0505 100%);
+            border-right: 2px solid #222;
+        }
+
+        .dossier-photo .photo-placeholder {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 0;
+            background:
+                linear-gradient(45deg, #1a0a0a 25%, transparent 25%),
+                linear-gradient(-45deg, #1a0a0a 25%, transparent 25%),
+                linear-gradient(45deg, transparent 75%, #1a0a0a 75%),
+                linear-gradient(-45deg, transparent 75%, #1a0a0a 75%),
+                linear-gradient(#0d0505, #150808);
+            background-size: 30px 30px;
+            background-position: 0 0, 0 15px, 15px -15px, -15px 0;
+            background-color: #0d0505;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .dossier-photo .photo-placeholder::before {
+            content: 'CLASSIFIED EVIDENCE';
+            font-size: 1rem;
+            letter-spacing: 6px;
+            color: rgba(255, 18, 18, 0.4);
+            font-family: 'Courier Prime', monospace;
+        }
+
+        .dossier-photo .photo-placeholder img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .dossier-photo::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: repeating-linear-gradient(0deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(0, 0, 0, 0.15) 2px,
+                    rgba(0, 0, 0, 0.15) 4px);
+            animation: scanline 8s linear infinite;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        @keyframes scanline {
+            0% {
+                transform: translateY(-100%);
+            }
+
+            100% {
+                transform: translateY(100%);
+            }
+        }
+
+        .dossier-photo .vhs-glitch {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg,
+                    transparent 0%,
+                    rgba(255, 18, 18, 0.03) 25%,
+                    transparent 50%,
+                    rgba(0, 247, 255, 0.02) 75%,
+                    transparent 100%);
+            animation: vhsFlicker 4s ease-in-out infinite;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        @keyframes vhsFlicker {
+
+            0%,
+            85%,
+            100% {
+                opacity: 0;
+            }
+
+            10%,
+            25%,
+            40% {
+                opacity: 1;
+            }
+        }
+
+        .dossier-photo .rec-indicator {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            width: 12px;
+            height: 12px;
+            background: var(--stranger-red);
+            border-radius: 50%;
+            animation: recPulse 1.5s ease-in-out infinite;
+            z-index: 2;
+            box-shadow: 0 0 10px var(--stranger-red);
+        }
+
+        .dossier-photo .rec-indicator::after {
+            content: 'REC';
+            position: absolute;
+            left: 1.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 0.6rem;
+            letter-spacing: 2px;
+            color: var(--stranger-red);
+            font-family: 'Courier Prime', monospace;
+        }
+
+        @keyframes recPulse {
+
+            0%,
+            100% {
+                opacity: 1;
+                box-shadow: 0 0 10px var(--stranger-red);
+            }
+
+            50% {
+                opacity: 0.6;
+                box-shadow: 0 0 20px var(--stranger-red);
+            }
+        }
+
+        .dossier-photo .spore-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .dossier-photo .spore-overlay span {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 50%;
+            animation: sporeFloat 12s ease-in-out infinite;
+        }
+
+        .dossier-photo .spore-overlay span:nth-child(1) {
+            left: 10%;
+            top: 20%;
+            animation-delay: 0s;
+        }
+
+        .dossier-photo .spore-overlay span:nth-child(2) {
+            left: 60%;
+            top: 40%;
+            animation-delay: 2s;
+        }
+
+        .dossier-photo .spore-overlay span:nth-child(3) {
+            left: 30%;
+            top: 70%;
+            animation-delay: 4s;
+        }
+
+        .dossier-photo .spore-overlay span:nth-child(4) {
+            left: 80%;
+            top: 15%;
+            animation-delay: 1s;
+        }
+
+        .dossier-photo .spore-overlay span:nth-child(5) {
+            left: 45%;
+            top: 85%;
+            animation-delay: 3s;
+        }
+
+        @keyframes sporeFloat {
+
+            0%,
+            100% {
+                transform: translate(0, 0);
+                opacity: 0.2;
+            }
+
+            25% {
+                transform: translate(10px, -20px);
+                opacity: 0.4;
+            }
+
+            50% {
+                transform: translate(-5px, 10px);
+                opacity: 0.15;
+            }
+
+            75% {
+                transform: translate(15px, 5px);
+                opacity: 0.35;
+            }
+        }
+
+        .dossier-text {
+            flex: 1;
+            min-width: 320px;
+            padding: 2.5rem 3rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .dossier-panel .about-tag {
+            font-size: 0.65rem;
+            letter-spacing: 4px;
+            color: var(--neon-blue);
+            margin-bottom: 0.8rem;
+            font-family: 'Courier Prime', monospace;
+        }
+
+        .dossier-panel h3 {
+            color: var(--stranger-red);
+            font-size: 2rem;
+            margin-bottom: 1.2rem;
+            font-weight: 800;
+            text-shadow: 0 0 20px rgba(255, 18, 18, 0.2);
+        }
+
+        .dossier-panel p {
+            color: #aaa;
+            line-height: 1.9;
+            font-size: 1.05rem;
+        }
+
+        @media (max-width: 768px) {
+            .dossier-photo {
+                min-height: 260px;
+                border-right: none;
+                border-bottom: 2px solid #222;
+            }
+        }
+
+        /* --- EVENTS GRID --- */
+        .section-title {
+            text-align: center;
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            margin: 2.5rem 0 1.5rem;
+            color: #fff;
+            position: relative;
+            font-weight: 800;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 3px;
+            background: var(--stranger-red);
+            margin: 1.5rem auto;
+            box-shadow: 0 0 10px var(--stranger-red);
+        }
+
+        .events-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .event-card {
+            background: rgba(17, 17, 17, 0.8);
+            border: 1px solid #222;
+            padding: 2rem;
+            position: relative;
+            transition: 0.4s;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .event-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--stranger-red);
+            box-shadow: 0 0 30px rgba(255, 18, 18, 0.2);
+        }
+
+        .event-card h3 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            color: var(--stranger-red);
+            font-weight: 700;
+        }
+
+        .tag {
+            display: inline-block;
+            background: #222;
+            color: var(--neon-blue);
+            padding: 0.3rem 0.8rem;
+            font-size: 0.7rem;
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+            border: 1px solid var(--neon-blue);
+            font-family: 'Courier Prime', monospace;
+        }
+
+        /* --- MAGAZINE SECTION --- */
+        .magazine {
+            background: linear-gradient(135deg, #0a0a0a 0%, #200000 100%);
+            padding: 2.5rem;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            gap: 2.5rem;
+            border: 2px solid var(--stranger-red);
+            margin: 0 auto 2.5rem;
+            max-width: 1100px;
+            position: relative;
+        }
+
+        .mag-cover {
+            width: 240px;
+            height: 320px;
+            background: #111;
+            border: 8px solid #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transform: rotate(-3deg);
+            box-shadow: 15px 15px 0px rgba(255, 18, 18, 0.3);
+            position: relative;
+            transition: 0.5s;
+        }
+
+        .mag-cover:hover {
+            transform: rotate(0deg) scale(1.05);
+        }
+
+        .mag-cover h4 {
+            font-family: 'Grenze', serif;
+            font-size: 2.2rem;
+            color: var(--stranger-red);
+            text-align: center;
+            font-weight: 800;
+        }
+
+        /* --- GALLERY --- */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .photo {
+            height: 250px;
+            background: #111;
+            border: 4px solid #fff;
+            transition: 0.4s;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .photo::before {
+            content: 'EVIDENCE #' + attr(data-id);
+            position: absolute;
+            font-size: 0.7rem;
+            color: #000;
+            background: #fff;
+            top: 0;
+            left: 0;
+            padding: 0.2rem 0.5rem;
+            font-family: 'Courier Prime', monospace;
+        }
+
+        .photo:hover {
+            transform: scale(1.05) rotate(2deg);
+            z-index: 10;
+            border-color: var(--stranger-red);
+        }
+
+        .photo span {
+            font-size: 3rem;
+            opacity: 0.1;
+        }
+
+        /* --- PARTICLES CANVAS --- */
+        #spore-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* --- ANIMATIONS --- */
+        @keyframes flicker {
+
+            0%,
+            18%,
+            22%,
+            25%,
+            53%,
+            57%,
+            100% {
+                filter: brightness(1.1);
+                -webkit-text-stroke: 1.5px var(--stranger-red);
+                text-shadow: 0 0 10px var(--stranger-red), 0 0 20px var(--stranger-red);
+                opacity: 1;
+            }
+
+            20%,
+            24%,
+            55% {
+                filter: brightness(0.8);
+                -webkit-text-stroke: 1px rgba(255, 18, 18, 0.5);
+                text-shadow: none;
+                opacity: 0.7;
+            }
+        }
+
+        /* --- COMMITTEE POLAROIDS --- */
+        .committee-section {
+            padding: 2.5rem 2rem;
+            /* background removed to allow flashlight effect */
+        }
+
+        .committee-section .section-title {
+            margin-bottom: 0;
+        }
+
+        .polaroid-string {
+            position: relative;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding-top: 1.5rem;
+        }
+
+        .polaroid-string::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(ellipse at 50% 0%, rgba(255, 18, 18, 0.03) 0%, transparent 60%);
+            pointer-events: none;
+        }
+
+        .polaroid-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1.5rem 2rem;
+            padding: 1rem 0 0;
+            position: relative;
+            z-index: 2;
+        }
+
+        .polaroid {
+            width: 200px;
+            background: #f5f0e8;
+            padding: 12px 12px 45px;
+            box-shadow:
+                2px 4px 15px rgba(0, 0, 0, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.8);
+            transform: rotate(var(--tilt, 0deg));
+            transition: transform 0.4s, box-shadow 0.4s;
+            position: relative;
+        }
+
+        .polaroid::before {
+            content: '';
+            position: absolute;
+            top: -18px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 24px;
+            height: 24px;
+            background: linear-gradient(145deg, #8b7355, #5c4a3a);
+            border-radius: 50%;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        }
+
+        .polaroid:hover {
+            transform: rotate(0deg) translateY(-8px) scale(1.02);
+            box-shadow:
+                0 15px 35px rgba(0, 0, 0, 0.5),
+                0 0 25px rgba(255, 18, 18, 0.15);
+            z-index: 10;
+        }
+
+        .polaroid-photo {
+            width: 100%;
+            aspect-ratio: 1;
+            background: linear-gradient(135deg, #1a0a0a 0%, #2a1515 100%);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .polaroid-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .polaroid-photo .polaroid-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: var(--stranger-red);
+            opacity: 0.5;
+            font-family: 'Grenze', serif;
+        }
+
+        .polaroid-caption {
+            position: absolute;
+            bottom: 12px;
+            left: 12px;
+            right: 12px;
+            text-align: center;
+            font-family: 'Courier Prime', monospace;
+        }
+
+        .polaroid-caption .name {
+            font-weight: 700;
+            font-size: 0.95rem;
+            color: #1a1a1a;
+            letter-spacing: 1px;
+        }
+
+        .polaroid-caption .role {
+            font-size: 0.7rem;
+            color: #666;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-top: 2px;
+        }
+
+        .polaroid:nth-child(1) {
+            --tilt: -4deg;
+        }
+
+        .polaroid:nth-child(2) {
+            --tilt: 3deg;
+        }
+
+        .polaroid:nth-child(3) {
+            --tilt: -2deg;
+        }
+
+        .polaroid:nth-child(4) {
+            --tilt: 5deg;
+        }
+
+        .polaroid:nth-child(5) {
+            --tilt: -3deg;
+        }
+
+        .polaroid:nth-child(6) {
+            --tilt: 2deg;
+        }
+
+        .polaroid:nth-child(7) {
+            --tilt: -5deg;
+        }
+
+        .polaroid:nth-child(8) {
+            --tilt: 4deg;
+        }
+
+        .polaroid:nth-child(9) {
+            --tilt: -1deg;
+        }
+
+        @keyframes polaroidSway {
+
+            0%,
+            100% {
+                transform: rotate(var(--tilt, 0deg));
+            }
+
+            50% {
+                transform: rotate(calc(var(--tilt, 0deg) + 2deg));
+            }
+        }
+
+        .polaroid {
+            animation: polaroidSway 6s ease-in-out infinite;
+        }
+
+        .polaroid:nth-child(odd) {
+            animation-delay: 0s;
+        }
+
+        .polaroid:nth-child(even) {
+            animation-delay: 3s;
+        }
+
+        .polaroid:hover {
+            animation: none;
+        }
+
+        @media (max-width: 768px) {
+            .polaroid {
+                width: 160px;
+            }
+
+            .polaroid-grid {
+                gap: 1.5rem 2rem;
+            }
+        }
+
+        /* --- MOBILE NAVIGATION --- */
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .nav-links a {
+                margin: 0 1rem;
+                font-size: 0.8rem;
+            }
+
+            .hero h1 {
+                font-size: 4rem;
+            }
+
+            .magazine {
+                padding: 2rem;
+                text-align: center;
+            }
+        }
+
+        /* Rift Effect */
+        .rift-active {
+            filter: invert(1) hue-rotate(180deg) !important;
+            transition: 2s ease;
+        }
+
+        .rift-overlay {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 1999;
+            background: radial-gradient(circle at 50% 50%, transparent 0%, rgba(0, 0, 0, 0.9) 100%);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .rift-overlay.active {
+            opacity: 1;
+        }
+
+        .rift-message {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.5);
+            z-index: 2001;
+            background: #000;
+            border: 2px solid var(--stranger-red);
+            padding: 2rem 3rem;
+            color: var(--stranger-red);
+            font-family: 'Grenze', serif;
+            box-shadow: 0 0 60px rgba(255, 18, 18, 0.6);
+            text-align: center;
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            opacity: 0;
+            transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.4s ease;
+        }
+
+        .rift-message.visible {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+            animation: riftGlitch 0.3s ease-in-out 3;
+        }
+
+        @keyframes riftGlitch {
+
+            0%,
+            100% {
+                text-shadow: 0 0 15px var(--stranger-red);
+            }
+
+            20% {
+                text-shadow: -3px 0 var(--neon-blue), 3px 0 var(--stranger-red), 0 0 20px var(--stranger-red);
+            }
+
+            40% {
+                text-shadow: 3px 0 var(--stranger-red), -3px 0 var(--neon-blue), 0 0 25px var(--stranger-red);
+            }
+
+            60% {
+                text-shadow: -2px 2px var(--neon-blue), 2px -2px var(--stranger-red);
+            }
+
+            80% {
+                text-shadow: 0 0 30px var(--stranger-red);
+            }
+        }
+
+        .rift-message.fade-out {
+            opacity: 0;
+            transform: translate(-50%, -50%) scale(1.2);
+            transition: all 0.6s ease;
+        }
+
+        .rift-scanlines {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 2000;
+            background: repeating-linear-gradient(0deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(0, 0, 0, 0.3) 2px,
+                    rgba(0, 0, 0, 0.3) 4px);
+            opacity: 0;
+        }
+
+        .rift-scanlines.active {
+            opacity: 1;
+            animation: riftScan 1s linear;
+        }
+
+        @keyframes riftScan {
+            0% {
+                transform: translateY(-100%);
+            }
+
+            100% {
+                transform: translateY(100%);
+            }
+        }
+
+        /* --- INVESTIGATION BOARD (New About Section) --- */
+        /* --- INVESTIGATION BOARD (New About Section) --- */
+        .investigation-board {
+            position: relative;
+            /* Lighter, more authentic cork color */
+            background-color: #8B5A2B;
+            /* Complex pattern for cork texture: noise + small circular gradients */
+            background-image:
+                url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.15'/%3E%3C/svg%3E"),
+                radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.05) 0%, transparent 10%),
+                repeating-linear-gradient(45deg, rgba(0, 0, 0, 0.02) 0px, rgba(0, 0, 0, 0.02) 2px, transparent 2px, transparent 4px);
+            border: 20px solid #4a3225;
+            /* Lighter wood frame */
+            box-shadow:
+                inset 0 0 80px rgba(0, 0, 0, 0.6),
+                0 20px 50px rgba(0, 0, 0, 0.5),
+                0 0 0 2px #2a1b15;
+            /* Outer border edge */
+            padding: 3rem;
+            min-height: 600px;
+            margin-bottom: 3rem;
+            margin-top: 4rem;
+            /* Gap added before board */
+            overflow: hidden;
+            /* Contains the absolute elements */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #board-svg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            /* Behind notes, atop board */
+        }
+
+        .manifesto {
+            background: #fff;
+            padding: 2rem;
+            max-width: 400px;
+            text-align: center;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            z-index: 2;
+            /* Content */
+            position: relative;
+            transform: rotate(-1deg);
+            border: 1px solid #ddd;
+        }
+
+        .manifesto h3 {
+            font-family: 'Grenze', serif;
+            font-size: 2.5rem;
+            color: #000;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+
+        .manifesto p {
+            font-family: 'Courier Prime', monospace;
+            color: #333;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-top: 1.5rem;
+            /* Gap before event description */
+        }
+
+        .pinned-note {
+            position: absolute;
+            background: #f4f1ea;
+            padding: 1.5rem;
+            width: 250px;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+            font-family: 'Courier Prime', monospace;
+            color: #222;
+            font-size: 0.9rem;
+            z-index: 2;
+            transform: rotate(var(--rotation, 0deg));
+            transition: transform 0.3s ease, z-index 0s;
+        }
+
+        .pinned-note:hover {
+            transform: scale(1.1) rotate(0deg) !important;
+            /* Override inline rotation */
+            z-index: 10;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .pinned-note::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 15px;
+            height: 15px;
+            background: radial-gradient(circle at 30% 30%, #ff4d4d, #990000);
+            border-radius: 50%;
+            box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+            z-index: 3;
+        }
+
+        /* Specific positions for demo - in production JS could randomize or layout engine */
+        .note-1 {
+            top: 10%;
+            left: 10%;
+            --rotation: -3deg;
+        }
+
+        .note-2 {
+            top: 15%;
+            right: 12%;
+            --rotation: 2deg;
+        }
+
+        .note-3 {
+            bottom: 10%;
+            left: 15%;
+            --rotation: 4deg;
+        }
+
+        .note-4 {
+            bottom: 15%;
+            right: 8%;
+            --rotation: -2deg;
+        }
+
+        /* Polaroid on Board */
+        .board-polaroid {
+            position: absolute;
+            background: #fff;
+            padding: 10px 10px 40px 10px;
+            width: 180px;
+            box-shadow: 3px 3px 12px rgba(0, 0, 0, 0.3);
+            z-index: 2;
+            transform: rotate(var(--rotation, 5deg));
+            top: 50%;
+            right: 5%;
+            /* Position it somewhere */
+            transition: transform 0.3s ease, z-index 0s;
+        }
+
+        .board-polaroid:hover {
+            transform: scale(1.1) rotate(0deg) !important;
+            z-index: 10;
+        }
+
+        .board-polaroid img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border: 1px solid #eee;
+            background: #000;
+        }
+
+        .board-polaroid::before {
+            content: '';
+            position: absolute;
+            top: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 12px;
+            height: 12px;
+            background: radial-gradient(circle at 30% 30%, #ff4d4d, #990000);
+            border-radius: 50%;
+        }
+
+        .board-polaroid-caption {
+            position: absolute;
+            bottom: 5px;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            font-family: 'Creepster', cursive;
+            color: #333;
+            font-size: 1.2rem;
+        }
+
+        /* Standalone Dossier Cards (Dept & College) */
+        .standalone-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .dossier-card {
+            background: linear-gradient(135deg, rgba(12, 12, 12, 0.98) 0%, rgba(25, 25, 25, 0.98) 100%);
+            border: 1px solid #333;
+            border-top: 3px solid var(--stranger-red);
+            display: flex;
+            flex-wrap: wrap;
+            min-height: 350px;
+            transition: transform 0.3s;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .dossier-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 40px rgba(255, 18, 18, 0.2);
+            animation: realityFlicker 0.15s infinite;
+        }
+
+        /* THEMED ANIMATION: "Reality Flicker" */
+        /* Simulates the card phasing into the Upside Down */
+        @keyframes realityFlicker {
+            0% {
+                filter: invert(0) hue-rotate(0deg);
+                border-color: var(--stranger-red);
+            }
+
+            50% {
+                /* Upside Down Mode: Inverted colors, slightly shifted */
+                filter: invert(1) hue-rotate(180deg) brightness(0.8);
+                border-color: #fff;
+                transform: translateY(-5px) translateX(2px);
+            }
+
+            52% {
+                /* Quick snap back */
+                filter: invert(0) hue-rotate(0deg);
+                transform: translateY(-5px) translateX(-2px);
+            }
+
+            100% {
+                filter: invert(0) hue-rotate(0deg);
+                border-color: var(--stranger-red);
+            }
+        }
+
+        /* Optional: Add a noise overlay that only appears on hover */
+        .dossier-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.5' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.3'/%3E%3C/svg%3E");
+            opacity: 0;
+            pointer-events: none;
+            z-index: 5;
+            mix-blend-mode: overlay;
+        }
+
+        .dossier-card:hover::after {
+            opacity: 1;
+        }
+
+        /* Reusing dossier-photo and dossier-text styles but adjusting for card layout */
+        .dossier-card .dossier-photo {
+            flex: 1;
+            min-width: 200px;
+            /* Smaller min-width for cards */
+        }
+
+        .dossier-card .dossier-text {
+            flex: 1.5;
+            padding: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .pinned-note {
+                position: relative;
+                top: auto;
+                left: auto;
+                right: auto;
+                bottom: auto;
+                margin: 1rem auto;
+                width: 90%;
+            }
+
+            .investigation-board {
+                flex-direction: column;
+                height: auto;
+                padding: 1rem;
+            }
+
+            .manifesto {
+                margin: 2rem 0;
+            }
+
+            #board-svg {
+                display: none;
+                /* Hide strings on mobile as layout stacks */
+            }
+
+            .board-polaroid {
+                position: relative;
+                margin: 1rem auto;
+                top: auto;
+                right: auto;
+            }
+
+            .standalone-cards {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* --- CASSETTE PLAYER WIDGET (RETRO STYLE) --- */
+        #cassette-player {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 260px;
+            height: 150px;
+            background: linear-gradient(to bottom, #222, #111);
+            border-radius: 4px;
+            border: 1px solid #333;
+            border-top: 1px solid #444;
+            box-shadow:
+                -10px 10px 20px rgba(0, 0, 0, 0.8),
+                inset 0 0 20px rgba(0, 0, 0, 0.9);
+            z-index: 10000;
+            display: flex;
+            flex-direction: column;
+            padding: 20px 15px;
+            transform: rotate(-2deg);
+            transition: transform 0.3s;
+        }
+
+        #cassette-player:hover {
+            transform: rotate(0deg) scale(1.05);
+            z-index: 10001;
+            box-shadow: -15px 15px 30px rgba(0, 0, 0, 0.9);
+        }
+
+        .walkman-brand {
+            display: none;
+        }
+
+        #track-info {
+            position: absolute;
+            top: 25px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: transparent;
+            color: #ff0000;
+            padding: 0;
+            font-family: 'Courier Prime', monospace;
+            font-size: 0.8rem;
+            border: none;
+            opacity: 1;
+            text-align: center;
+            letter-spacing: 2px;
+            text-shadow: 0 0 3px rgba(255, 0, 0, 0.6);
+            width: 90%;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            pointer-events: none;
+        }
+
+        .cassette-window {
+            background: #050505;
+            width: 100%;
+            height: 70px;
+            margin-top: 25px;
+            /* Space for text */
+            border-radius: 2px;
+            border: 1px solid #333;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: inset 0 0 15px rgba(255, 255, 255, 0.05);
+        }
+
+        /* Tape Reels (Dashed) */
+        .tape-reel {
+            width: 40px;
+            height: 40px;
+            border: 4px dashed #444;
+            border-radius: 50%;
+            margin: 0 25px;
+            position: relative;
+            background: transparent;
+        }
+
+        .tape-reel::after,
+        .tape-reel::before {
+            display: none;
+        }
+
+        .playing .tape-reel {
+            animation: spin 3s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .controls {
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
+            /* Closer to window */
+            gap: 10px;
+        }
+
+        .c-btn {
+            background: transparent;
+            border: none;
+            border-radius: 0;
+            height: auto;
+            flex: 0 0 auto;
+            margin: 0;
+            cursor: pointer;
+            box-shadow: none;
+            text-align: center;
+            font-size: 1.2rem;
+            /* Larger icons */
+            font-weight: bold;
+            color: #444;
+            transition: 0.2s;
+            padding: 5px;
+        }
+
+        .c-btn:hover {
+            color: #888;
+            background: transparent;
+        }
+
+        .c-btn:active {
+            transform: scale(0.9);
+            background: transparent;
+            border: none;
+            box-shadow: none;
+        }
+
+        .c-btn.active-play {
+            color: #ff0000;
+            text-shadow: 0 0 8px rgba(255, 0, 0, 0.5);
+            background: transparent;
+            border: none;
+            box-shadow: none;
+        }
+
+        /* Custom icons for buttons using text */
+        #btn-play {
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            padding-top: 8px;
+        }
+
+        #cassette-player:hover #track-info {
+            opacity: 1;
+
+        }
+    </style>
+</head>
+
+<body>
+
+    <canvas id="spore-canvas"></canvas>
+
+    <style>
+        /* --- INTRO OVERLAY (Netflix Style) --- */
+        #intro-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: #000;
+            z-index: 20000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            pointer-events: none;
+            /* Allows clicks once hidden, though we'll use display: none */
+        }
+
+        #intro-overlay.fade-out {
+            opacity: 0;
+            transition: opacity 1.2s ease-out;
+        }
+
+        .netflix-t {
+            font-family: 'Grenze', serif;
+            font-size: 15rem;
+            font-weight: 900;
+            color: var(--stranger-red);
+            text-shadow:
+                0 0 20px #8b0000,
+                0 0 50px #ff0000,
+                0 0 100px #ff1212;
+            animation: t-zoom 4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+            /* Start hidden to handle the 0% frame cleanly */
+            opacity: 0;
+            will-change: transform, opacity, filter;
+        }
+
+        @keyframes t-zoom {
+            0% {
+                transform: scale(0.1);
+                opacity: 0;
+                filter: blur(15px);
+            }
+
+            15% {
+                transform: scale(0.5);
+                opacity: 1;
+                filter: blur(0px);
+            }
+
+            20% {
+                transform: scale(0.5);
+                opacity: 1;
+                filter: blur(0px);
+            }
+
+            85% {
+                transform: scale(1.3);
+                filter: brightness(1) drop-shadow(0 0 10px rgba(255, 18, 18, 0.8));
+                opacity: 1;
+            }
+
+            100% {
+                transform: scale(50);
+                filter: brightness(5) blur(2px);
+                opacity: 0;
+            }
+        }
+
+        /* --- GLITCH & NOISE EFFECTS --- */
+        .netflix-t {
+            position: relative;
+        }
+
+        .netflix-t::before,
+        .netflix-t::after {
+            content: "T";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.8;
+        }
+
+        .netflix-t::before {
+            color: var(--neon-blue);
+            z-index: -1;
+            animation: glitch-anim-1 2s infinite linear alternate-reverse;
+        }
+
+        .netflix-t::after {
+            color: #ff00ff;
+            z-index: -2;
+            animation: glitch-anim-2 3s infinite linear alternate-reverse;
+        }
+
+        @keyframes glitch-anim-1 {
+            0% {
+                clip-path: inset(20% 0 80% 0);
+                transform: translate(-2px, 0);
+            }
+
+            20% {
+                clip-path: inset(60% 0 10% 0);
+                transform: translate(2px, 0);
+            }
+
+            40% {
+                clip-path: inset(40% 0 50% 0);
+                transform: translate(-2px, 0);
+            }
+
+            60% {
+                clip-path: inset(80% 0 5% 0);
+                transform: translate(2px, 0);
+            }
+
+            80% {
+                clip-path: inset(10% 0 70% 0);
+                transform: translate(-2px, 0);
+            }
+
+            100% {
+                clip-path: inset(30% 0 20% 0);
+                transform: translate(2px, 0);
+            }
+        }
+
+        @keyframes glitch-anim-2 {
+            0% {
+                clip-path: inset(10% 0 60% 0);
+                transform: translate(2px, 0);
+            }
+
+            20% {
+                clip-path: inset(30% 0 20% 0);
+                transform: translate(-2px, 0);
+            }
+
+            40% {
+                clip-path: inset(70% 0 10% 0);
+                transform: translate(2px, 0);
+            }
+
+            60% {
+                clip-path: inset(20% 0 50% 0);
+                transform: translate(-2px, 0);
+            }
+
+            80% {
+                clip-path: inset(50% 0 30% 0);
+                transform: translate(2px, 0);
+            }
+
+            100% {
+                clip-path: inset(0% 0 90% 0);
+                transform: translate(-2px, 0);
+            }
+        }
+
+        /* CRT Flash on Start */
+        .crt-flash {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: white;
+            opacity: 0;
+            z-index: 20001;
+            animation: flash 0.2s ease-out 0.1s;
+            pointer-events: none;
+        }
+
+        @keyframes flash {
+            0% {
+                opacity: 1;
+            }
+
+            100% {
+                opacity: 0;
+            }
+        }
+    </style>
+
+    <!-- Intro Audio -->
+    <audio id="intro-sound" src="https://assets.nflxext.com/ffe/siteui/common/icons/nficon2016.ico"
+        preload="auto"></audio> <!-- Placeholder source, user should replace -->
+
+    <!-- Intro Overlay Structure -->
+    <div id="intro-overlay">
+        <div class="netflix-t">T</div>
+        <div class="crt-flash"></div>
+    </div>
+
+    <!-- Main Content Scripts Handling Intro -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const overlay = document.getElementById('intro-overlay');
+            const sound = document.getElementById('intro-sound');
+
+            // Try to play sound (browsers might block it without interaction, but worth a try)
+            // Or we can ask user to interact. For now, we attempt auto-play.
+            // Using a short timeout to ensure loading
+            setTimeout(() => {
+                sound.play().catch(e => console.log('Audio autoplay blocked:', e));
+            }, 500);
+
+            // Trigger fade out
+            setTimeout(() => {
+                overlay.classList.add('fade-out');
+            }, 3800); // Trigger just before animation ends
+
+            // Remove from flow
+            setTimeout(() => {
+                overlay.style.display = 'none';
+            }, 5000);
+        });
+    </script>
+
+    <div id="mindflayer-cursor" aria-hidden="true">
+        <div class="cursor-core"></div>
+    </div>
+
+    <nav>
+        <div class="logo">TECHLEONS // 2026</div>
+        <div class="nav-links">
+            <a href="#about">CLASSIFIED</a>
+            <a href="#events">MISSIONS</a>
+            <a href="#committee">COMMITTEE</a>
+            <a href="#gallery">EVIDENCE</a>
+            <a href="#magazine">ARCHIVES</a>
+        </div>
+    </nav>
+
+    <section class="hero" id="home">
+        <h1 class="glow-text">TECHLEONS</h1>
+        <div class="countdown" id="countdown">
+            <div class="countdown-unit">
+                <span class="countdown-value" id="days">--</span>
+                <span class="countdown-label">DAYS</span>
+            </div>
+            <div class="countdown-unit">
+                <span class="countdown-value" id="hours">--</span>
+                <span class="countdown-label">HRS</span>
+            </div>
+            <div class="countdown-unit">
+                <span class="countdown-value" id="minutes">--</span>
+                <span class="countdown-label">MIN</span>
+            </div>
+            <div class="countdown-unit">
+                <span class="countdown-value" id="seconds">--</span>
+                <span class="countdown-label">SEC</span>
+            </div>
+        </div>
+        <p class="countdown-subtitle">TRANSMISSION: FEBRUARY 9TH, 2026</p>
+        <p>THE GATE IS OPEN. THINGS ARE GETTING STRANGER.</p>
+        <button class="btn" onclick="enterRift()">ENTER THE RIFT</button>
+    </section>
+
+    <section id="about">
+        <div class="info-bar">
+            <div class="info-item">
+                <h3>TRANSMISSION DATE</h3>
+                <p>FEB 9</p>
+            </div>
+            <div class="info-item">
+                <h3>COORDINATES</h3>
+                <p>BLOCK A / HAWKINS LAB</p>
+            </div>
+            <div class="info-item">
+                <h3>SECURITY CLEARANCE</h3>
+                <p>LEVEL 4 / TOP SECRET</p>
+            </div>
+            <div class="info-item">
+                <h3>STATUS</h3>
+                <p style="color: var(--stranger-red);">CODE RED</p>
+            </div>
+        </div>
+
+        <div class="about-sections" style="padding-top: 0;">
+            <!-- Investigation Board (Event Info) -->
+            <div class="investigation-board" id="investigation-board">
+                <svg id="board-svg"></svg>
+
+                <!-- Christmas Lights Reference -->
+                <div class="lights-wire" id="christmas-lights"></div>
+
+                <div class="manifesto" id="main-manifesto">
+                    <h3>THE EVENT</h3>
+                    <p>"Techleons is a 24-hour convergence of code and chaos. We open the gate to strange
+                        possibilities."</p>
+                </div>
+
+                <div class="pinned-note note-1">
+                    <p><strong>SUBJECT:</strong> HACKATHONS</p>
+                    <p>24 hours. Non-stop coding. Building solutions for a world upside down.</p>
+                </div>
+
+                <div class="pinned-note note-2">
+                    <p><strong>SUBJECT:</strong> GAMING</p>
+                    <p>Valorant. FIFA. Retro Arcade. High scores will be recorded in the archives.</p>
+                </div>
+
+                <div class="pinned-note note-3">
+                    <p><strong>SUBJECT:</strong> WORKSHOPS</p>
+                    <p>Learning new tech. Preparing the next generation of Hawkins scientists.</p>
+                </div>
+
+                <div class="board-polaroid note-4">
+                    <div
+                        style="width: 100%; height: 120px; background: #111; display:flex; align-items:center; justify-content:center; overflow:hidden;">
+                        <span style="color:#444; font-size: 2rem;">?</span>
+                    </div>
+                    <div class="board-polaroid-caption">011</div>
+                </div>
+            </div>
+
+            <!-- Standalone Cards for Dept & College -->
+            <!-- Standalone Cards for Dept & College -->
+            <div class="standalone-cards">
+                <!-- College Card (First) -->
+                <div class="dossier-card" id="panel-college">
+                    <div class="dossier-photo">
+                        <div class="rec-indicator"></div>
+                        <div class="vhs-glitch"></div>
+                        <div class="spore-overlay">
+                            <span></span><span></span><span></span><span></span><span></span>
+                        </div>
+                        <div class="photo-placeholder">
+                            <!-- Replace with <img src="your-college-photo.jpg" alt="College"> -->
+                        </div>
+                    </div>
+                    <div class="dossier-text">
+                        <span class="about-tag">RESTRICTED • DOSSIER #003</span>
+                        <h3>THE COLLEGE</h3>
+                        <p>Where tradition meets the strange. With state-of-the-art labs and a vibrant community,
+                            Block A becomes the gateway for Techleons—where the extraordinary happens.</p>
+                        <button class="btn"
+                            style="margin-top: 1.5rem; font-size: 0.9rem; padding: 0.8rem 1.5rem; width: fit-content;">KNOW
+                            MORE</button>
+                    </div>
+                </div>
+
+                <!-- Department Card (Second) -->
+                <div class="dossier-card" id="panel-department">
+                    <div class="dossier-photo">
+                        <div class="rec-indicator"></div>
+                        <div class="vhs-glitch"></div>
+                        <div class="spore-overlay">
+                            <span></span><span></span><span></span><span></span><span></span>
+                        </div>
+                        <div class="photo-placeholder">
+                            <!-- Replace with <img src="your-dept-photo.jpg" alt="Department"> -->
+                        </div>
+                    </div>
+                    <div class="dossier-text">
+                        <span class="about-tag">RESTRICTED • DOSSIER #002</span>
+                        <h3>THE DEPARTMENT</h3>
+                        <p>The Department of Computer Science & Engineering serves as Hawkins Lab—the nerve center of
+                            innovation. Our faculty and students work at the frontier of technology, from AI to
+                            full-stack development.</p>
+                        <button class="btn"
+                            style="margin-top: 1.5rem; font-size: 0.9rem; padding: 0.8rem 1.5rem; width: fit-content;">KNOW
+                            MORE</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="container">
+        <h2 class="section-title" id="events">Current Missions</h2>
+
+        <!-- Technical Events -->
+        <h3
+            style="color: var(--stranger-red); font-family: 'Grenze', serif; font-size: 1.8rem; margin-bottom: 1.5rem; letter-spacing: 2px; border-bottom: 1px solid #333; padding-bottom: 0.5rem;">
+            TECHNICAL OPERATIONS</h3>
+        <div class="events-grid">
+            <div class="event-card" style="position: relative; overflow: hidden;">
+                <div>
+                    <span class="tag">SYSTEM BREACH</span>
+                    <h3>CODE RED</h3>
+                    <p style="margin: 1rem 0; color: #888; line-height: 1.6;">A massive breach in the mainframe. Fix the
+                        core logic before the Mind Flayer corrupts the network. 24-hour elite hackathon.</p>
+                </div>
+                <button class="btn" style="font-size: 0.8rem; padding: 0.6rem 1.2rem; align-self: flex-start;"
+                    onclick="openRift(this, 'registration.html')">DECRYPT</button>
+            </div>
+
+            <div class="event-card" style="position: relative; overflow: hidden;">
+                <div>
+                    <span class="tag">INNOVATION LAB</span>
+                    <h3>PROJECT 011</h3>
+                    <p style="margin: 1rem 0; color: #888; line-height: 1.6;">Pitch your telekinetic ideas. The most
+                        disruptive tech startups will receive funding from the Department of Energy.</p>
+                </div>
+                <button class="btn" style="font-size: 0.8rem; padding: 0.6rem 1.2rem; align-self: flex-start;"
+                    onclick="openRift(this, 'registration.html')">PITCH MISSION</button>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- NON-TECHNICAL SECTION (Starcourt Arcade) -->
+    <section class="cinematic-section" id="nontech-section">
+        <div class="container">
+            <h3
+                style="color: var(--neon-blue); font-family: 'Grenze', serif; font-size: 2.5rem; margin-bottom: 2rem; letter-spacing: 4px; border-bottom: 2px solid #333; padding-bottom: 1rem; text-shadow: 0 0 10px var(--neon-blue);">
+                NON-TECHNICAL OPERATIONS
+            </h3>
+            <div class="events-grid">
+                <div class="event-card" style="position: relative; overflow: hidden;">
+                    <div>
+                        <span class="tag">COMBAT SIMULATION</span>
+                        <h3>THE ARCADE</h3>
+                        <p style="margin: 1rem 0; color: #888; line-height: 1.6;">Step into the neon-lit battlefield.
+                            Valorant, FIFA, and retro arcade titles. Winner takes the high score of Hawkins.</p>
+                    </div>
+                    <button class="btn" style="font-size: 0.8rem; padding: 0.6rem 1.2rem; align-self: flex-start;"
+                        onclick="openRift(this, 'registration.html')">JOIN SQUAD</button>
+                </div>
+
+                <div class="event-card" style="position: relative; overflow: hidden;">
+                    <div>
+                        <span class="tag">SEARCH PARTY</span>
+                        <h3>FIND WILL</h3>
+                        <p style="margin: 1rem 0; color: #888; line-height: 1.6;">A scavenger hunt across the upside
+                            down.
+                            Decipher the clues left by Will Byers to find the gate before it closes.</p>
+                    </div>
+                    <button class="btn" style="font-size: 0.8rem; padding: 0.6rem 1.2rem; align-self: flex-start;"
+                        onclick="openRift(this, 'registration.html')">START SEARCH</button>
+                </div>
+
+                <div class="event-card" style="position: relative; overflow: hidden;">
+                    <div>
+                        <span class="tag">KNOWLEDGE BATTLE</span>
+                        <h3>HELLFIRE CLUB</h3>
+                        <p style="margin: 1rem 0; color: #888; line-height: 1.6;">The ultimate trivia night. Pop
+                            culture,
+                            tech history, and D&D lore. Prove you're not a mouth breather.</p>
+                    </div>
+                    <button class="btn" style="font-size: 0.8rem; padding: 0.6rem 1.2rem; align-self: flex-start;"
+                        onclick="openRift(this, 'registration.html')">ROLL D20</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="container">
+        <h2 class="section-title" id="magazine">The Hawkins Post</h2>
+        <div class="magazine">
+            <div class="mag-cover">
+                <h4>TECH<br>CHRONICLE</h4>
+                <p style="font-size: 0.5rem; margin-top: 2rem; color: #777; font-family: 'Courier Prime';">VOL 11 //
+                    ISSUE 01</p>
+            </div>
+            <div style="flex: 1; min-width: 300px;">
+                <h3 style="color: var(--stranger-red); margin-bottom: 1.5rem; font-size: 2.2rem; font-weight: 800;">THE
+                    UPSIDE DOWN ARCHIVE</h3>
+                <p style="margin-bottom: 2rem; color: #aaa; line-height: 1.8;">Download the official digital companion
+                    for Techleons 2026. Includes blueprints of Hawkins Lab, secret Morse codes, and exclusive developer
+                    interviews.</p>
+                <button class="btn">ACCESS ARCHIVE #011</button>
+            </div>
+        </div>
+
+        <h2 class="section-title" id="gallery">Captured Evidence</h2>
+        <div class="gallery-grid" id="gallery-container">
+            <!-- Photos generated by JS -->
+        </div>
+    </div>
+
+    <section class="committee-section" id="committee">
+        <h2 class="section-title">The Hawkins Crew</h2>
+        <div class="polaroid-string">
+            <div class="polaroid-grid">
+                <div class="polaroid">
+                    <div class="polaroid-photo">
+                        <span class="polaroid-placeholder">?</span>
+                        <!-- <img src="committee-photo.jpg" alt="Name"> -->
+                    </div>
+                    <div class="polaroid-caption">
+                        <div class="name">NAME HERE</div>
+                        <div class="role">President</div>
+                    </div>
+                </div>
+                <div class="polaroid">
+                    <div class="polaroid-photo">
+                        <span class="polaroid-placeholder">?</span>
+                    </div>
+                    <div class="polaroid-caption">
+                        <div class="name">NAME HERE</div>
+                        <div class="role">Vice President</div>
+                    </div>
+                </div>
+                <div class="polaroid">
+                    <div class="polaroid-photo">
+                        <span class="polaroid-placeholder">?</span>
+                    </div>
+                    <div class="polaroid-caption">
+                        <div class="name">NAME HERE</div>
+                        <div class="role">Secretary</div>
+                    </div>
+                </div>
+                <div class="polaroid">
+                    <div class="polaroid-photo">
+                        <span class="polaroid-placeholder">?</span>
+                    </div>
+                    <div class="polaroid-caption">
+                        <div class="name">NAME HERE</div>
+                        <div class="role">Treasurer</div>
+                    </div>
+                </div>
+                <div class="polaroid">
+                    <div class="polaroid-photo">
+                        <span class="polaroid-placeholder">?</span>
+                    </div>
+                    <div class="polaroid-caption">
+                        <div class="name">NAME HERE</div>
+                        <div class="role">Tech Head</div>
+                    </div>
+                </div>
+                <div class="polaroid">
+                    <div class="polaroid-photo">
+                        <span class="polaroid-placeholder">?</span>
+                    </div>
+                    <div class="polaroid-caption">
+                        <div class="name">NAME HERE</div>
+                        <div class="role">Events Head</div>
+                    </div>
+                </div>
+                <div class="polaroid">
+                    <div class="polaroid-photo">
+                        <span class="polaroid-placeholder">?</span>
+                    </div>
+                    <div class="polaroid-caption">
+                        <div class="name">NAME HERE</div>
+                        <div class="role">Design Head</div>
+                    </div>
+                </div>
+                <div class="polaroid">
+                    <div class="polaroid-photo">
+                        <span class="polaroid-placeholder">?</span>
+                    </div>
+                    <div class="polaroid-caption">
+                        <div class="name">NAME HERE</div>
+                        <div class="role">Member</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer
+        style="text-align: center; padding: 2.5rem 2rem; color: #444; margin-top: 2.5rem; border-top: 1px solid #1a1a1a; background: #000;">
+        <div
+            style="margin-bottom: 2.5rem; font-family: 'Courier Prime', monospace; width: 100%; max-width: 900px; margin-left: auto; margin-right: auto;">
+            <h4
+                style="color: var(--stranger-red); margin-bottom: 2rem; letter-spacing: 2px; font-weight: bold; font-family: 'Grenze', serif; font-size: 1.5rem;">
+                FACULTY COORDINATORS</h4>
+
+            <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 2rem;">
+
+                <div style="flex: 1; min-width: 250px;">
+                    <p
+                        style="font-size: 1.2rem; color: #fff; font-weight: bold; margin-bottom: 0.5rem; text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);">
+                        Manasa Kulkarni</p>
+                    <a href="mailto:manasa@example.com"
+                        style="color: #666; font-size: 0.9rem; text-decoration: none; transition: 0.3s; display: block;">manasa@example.com</a>
+                </div>
+
+                <div style="flex: 1; min-width: 250px;">
+                    <p
+                        style="font-size: 1.2rem; color: #fff; font-weight: bold; margin-bottom: 0.5rem; text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);">
+                        Sangeeta</p>
+                    <a href="mailto:sangeeta@example.com"
+                        style="color: #666; font-size: 0.9rem; text-decoration: none; transition: 0.3s; display: block;">sangeeta@example.com</a>
+                </div>
+
+                <div style="flex: 1; min-width: 250px;">
+                    <p
+                        style="font-size: 1.2rem; color: #fff; font-weight: bold; margin-bottom: 0.5rem; text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);">
+                        Reshmi K R</p>
+                    <a href="mailto:reshmi@example.com"
+                        style="color: #666; font-size: 0.9rem; text-decoration: none; transition: 0.3s; display: block;">reshmi@example.com</a>
+                </div>
+
+            </div>
+        </div>
+
+        <p style="letter-spacing: 3px; margin-bottom: 1rem; font-weight: bold;">"FRIENDS DON'T LIE."</p>
+        <p style="font-size: 0.7rem;">© 2026 TECHLEONS COMMITTEE • HAWKINS INDIANA • ALL RIGHTS RESERVED</p>
+    </footer>
+
+    <!-- Cassette Player Widget -->
+    <div id="cassette-player">
+        <div class="walkman-brand">WALKMAN</div>
+        <div id="track-info">RUNNING UP THAT HILL</div>
+        <div class="cassette-window">
+            <div class="tape-reel"></div>
+            <div class="tape-reel"></div>
+        </div>
+        <div class="controls">
+            <button class="c-btn" id="btn-prev" title="Previous">◄◄</button>
+            <button class="c-btn" id="btn-play" title="Play/Pause">PLAY</button>
+            <button class="c-btn" id="btn-next" title="Next">►►</button>
+        </div>
+        <audio id="audio-player"></audio>
+    </div>
+
+    <script>
+        // --- CASSETTE PLAYER LOGIC ---
+        const playlist = [
+            { title: "RUNNING UP THAT HILL", src: "./running_up_that_hill.mp3" },
+            { title: "SHOULD I STAY OR GO", src: "./should_i_stay_or_should_i_go.mp3" },
+            { title: "MASTER OF PUPPETS", src: "./master_of_puppets.mp3" },
+            { title: "SEPARATE WAYS", src: "./separate_ways.mp3" }
+        ];
+
+        let currentTrack = 0;
+        let isPlaying = false;
+
+        const audioPlayer = document.getElementById('audio-player');
+        const tapeWindow = document.querySelector('.cassette-window');
+        const playBtn = document.getElementById('btn-play');
+        const stopBtn = document.getElementById('btn-stop');
+        const nextBtn = document.getElementById('btn-next');
+        const prevBtn = document.getElementById('btn-prev');
+        const trackDisplay = document.getElementById('track-info');
+
+        function loadTrack(index) {
+            audioPlayer.src = playlist[index].src;
+            trackDisplay.textContent = "NOW PLAYING: " + playlist[index].title;
+            // Preload to ensure play works smoothly
+            audioPlayer.load();
+        }
+
+        function playAudio() {
+            audioPlayer.play().then(() => {
+                isPlaying = true;
+                tapeWindow.classList.add('playing');
+                playBtn.classList.add('active-play');
+                playBtn.textContent = "PAUSE";
+            }).catch(e => {
+                console.log("Audio play failed (file missing?):", e);
+                trackDisplay.textContent = "ERR: TAPE MISSING";
+            });
+        }
+
+        function pauseAudio() {
+            audioPlayer.pause();
+            isPlaying = false;
+            tapeWindow.classList.remove('playing');
+            playBtn.classList.remove('active-play');
+            playBtn.textContent = "PLAY";
+        }
+
+        function stopAudio() {
+            pauseAudio();
+            audioPlayer.currentTime = 0;
+        }
+
+        function nextTrack() {
+            currentTrack = (currentTrack + 1) % playlist.length;
+            loadTrack(currentTrack);
+            if (isPlaying) playAudio();
+        }
+
+        function prevTrack() {
+            currentTrack = (currentTrack - 1 + playlist.length) % playlist.length;
+            loadTrack(currentTrack);
+            if (isPlaying) playAudio();
+        }
+
+        // Event Listeners
+        // Event Listeners (Safe)
+        if (playBtn) {
+            playBtn.addEventListener('click', () => {
+                if (isPlaying) pauseAudio();
+                else playAudio();
+            });
+        }
+
+        if (stopBtn) stopBtn.addEventListener('click', stopAudio);
+        if (nextBtn) nextBtn.addEventListener('click', nextTrack);
+        if (prevBtn) prevBtn.addEventListener('click', prevTrack);
+
+        // Auto next
+        audioPlayer.addEventListener('ended', nextTrack);
+
+        // Initial Load
+        loadTrack(currentTrack);
+
+        // Ensure volume is reasonable
+        audioPlayer.volume = 0.7;
+
+    </script>
+    <script>
+        // --- SPORE PARTICLE SYSTEM ---
+        const canvas = document.getElementById('spore-canvas');
+        const ctx = canvas.getContext('2d');
+
+        let particles = [];
+        const particleCount = 60;
+
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        class Particle {
+            constructor() {
+                this.init();
+            }
+
+            init() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 1;
+                this.speedX = (Math.random() - 0.5) * 0.5;
+                this.speedY = (Math.random() - 0.5) * 0.8;
+                this.opacity = Math.random() * 0.5 + 0.1;
+                this.wobble = Math.random() * Math.PI * 2;
+            }
+
+            update() {
+                this.x += this.speedX + Math.sin(this.wobble) * 0.2;
+                this.y += this.speedY;
+                this.wobble += 0.01;
+
+                if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) {
+                    this.init();
+                }
+            }
+
+            draw() {
+                ctx.fillStyle = `rgba(255, 255, 255, ${this.opacity})`;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function initParticles() {
+            for (let i = 0; i < particleCount; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            requestAnimationFrame(animate);
+        }
+
+        window.addEventListener('resize', resize);
+
+
+
+        // --- SMOKE TRAIL CURSOR & FLASHLIGHT ---
+        const cursor = document.getElementById('mindflayer-cursor');
+        // Initialize position off-screen or center to avoid jump
+        let mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2;
+        let cursorX = mouseX, cursorY = mouseY;
+
+        // Track mouse movement
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+
+            // Move flashlight effect on body
+            document.body.style.setProperty('--cursor-x', mouseX + 'px');
+            document.body.style.setProperty('--cursor-y', mouseY + 'px');
+
+            // Move the entire cursor container (core + smoke origin)
+            cursor.style.transform = `translate(${mouseX}px, ${mouseY}px)`;
+
+            // Spawn smoke particle removed
+            // if (Math.random() > 0.3) spawnSmoke(0, 0); // Relative to cursor container
+        });
+
+        // Ensure cursor is visible on entry
+        document.addEventListener('mouseenter', () => {
+            cursor.style.opacity = '1';
+        });
+
+        // Smoke function removed
+
+
+        // --- CHRISTMAS LIGHTS GENERATOR (Stranger Things Style) ---
+        function generateLights() {
+            const wire = document.getElementById('christmas-lights');
+            if (!wire) return;
+            // Clear if already exists to prevent dupes on reload
+            while (wire.firstChild) { wire.removeChild(wire.firstChild); }
+
+            const colors = ['red', 'green', 'yellow', 'blue'];
+            const count = 24;
+
+            for (let i = 0; i < count; i++) {
+                const bulb = document.createElement('div');
+                bulb.className = 'light-bulb';
+                bulb.style.left = (i * (100 / count) + 2) + '%';
+
+                // Randomize wire hang slightly
+                bulb.style.top = (Math.random() * 15 + 45) + 'px';
+
+                // Assign blink animation
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                bulb.style.animationName = `blink-${color}`;
+                bulb.style.animationDelay = (Math.random() * 2) + 's';
+
+                wire.appendChild(bulb);
+            }
+        }
+
+        // Run light generation
+        generateLights();
+
+        // --- PROXIMITY DETECTION (Legacy Support) ---
+        // Kept simple for specific interactions if needed, else cursor does heavy lifting visually
+        function checkProximity() {
+            const reactElements = document.querySelectorAll('.btn, .event-card, .polaroid, .dossier-tab, .section-title, nav a, .photo, .mag-cover, .dossier-panel');
+            const threshold = 120;
+            reactElements.forEach(el => {
+                const rect = el.getBoundingClientRect();
+                const centerX = rect.left + rect.width / 2;
+                const centerY = rect.top + rect.height / 2;
+                const dist = Math.hypot(mouseX - centerX, mouseY - centerY);
+                const near = dist < Math.max(rect.width, rect.height) / 2 + threshold;
+                el.classList.toggle('cursor-near', near);
+            });
+            requestAnimationFrame(checkProximity);
+        }
+        checkProximity();
+
+        // --- RED STRING LOGIC (Restored) ---
+        function drawStrings() {
+            const svg = document.getElementById('board-svg');
+            const board = document.getElementById('investigation-board');
+            const manifesto = document.getElementById('main-manifesto');
+            const notes = document.querySelectorAll('.pinned-note, .board-polaroid');
+
+            if (!svg || !board || !manifesto) return;
+
+            // Clear existing lines
+            while (svg.firstChild) {
+                svg.removeChild(svg.firstChild);
+            }
+
+            const boardRect = board.getBoundingClientRect();
+            const maniRect = manifesto.getBoundingClientRect();
+
+            // Manifesto center relative to board
+            const startX = (maniRect.left - boardRect.left) + (maniRect.width / 2);
+            const startY = (maniRect.top - boardRect.top) + (maniRect.height / 2);
+
+            notes.forEach(note => {
+                const noteRect = note.getBoundingClientRect();
+                const endX = (noteRect.left - boardRect.left) + (noteRect.width / 2);
+                const endY = (noteRect.top - boardRect.top) + 10;
+                const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                line.setAttribute('x1', startX);
+                line.setAttribute('y1', startY);
+                line.setAttribute('x2', endX);
+                line.setAttribute('y2', endY);
+                line.setAttribute('stroke', 'rgba(255, 18, 18, 0.7)');
+                line.setAttribute('stroke-width', '3');
+                svg.appendChild(line);
+            });
+        }
+        window.addEventListener('resize', drawStrings);
+        window.addEventListener('load', () => setTimeout(drawStrings, 100));
+        setTimeout(drawStrings, 500);
+        function setupGallery() {
+            const gallery = document.getElementById('gallery-container');
+            const icons = ['▲', '■', '◆', '✖', '●', '◈', '◢', '◥'];
+
+            if (!gallery) return; // Guard clause
+
+            for (let i = 1; i <= 8; i++) {
+                const photo = document.createElement('div');
+                photo.className = 'photo';
+                photo.setAttribute('data-id', i.toString().padStart(3, '0'));
+                photo.innerHTML = `<span>${icons[i - 1]}</span>`;
+                gallery.appendChild(photo);
+            }
+        }
+
+        // --- RIFT TRANSITION ---
+        function enterRift() {
+            const overlay = document.createElement('div');
+            overlay.className = 'rift-overlay';
+            const msg = document.createElement('div');
+            msg.className = 'rift-message';
+            msg.innerHTML = "ENTERING THE UPSIDE DOWN...";
+            const scanlines = document.createElement('div');
+            scanlines.className = 'rift-scanlines';
+
+            document.body.appendChild(overlay);
+            document.body.appendChild(scanlines);
+            document.body.appendChild(msg);
+
+            overlay.classList.add('active');
+            document.body.classList.add('rift-active');
+
+            requestAnimationFrame(() => {
+                msg.classList.add('visible');
+                setTimeout(() => scanlines.classList.add('active'), 400);
+            });
+
+            setTimeout(() => {
+                msg.classList.add('fade-out');
+                scanlines.classList.remove('active');
+            }, 2200);
+
+            setTimeout(() => {
+                document.body.classList.remove('rift-active');
+                overlay.classList.remove('active');
+                msg.remove();
+                overlay.remove();
+                scanlines.remove();
+
+                const target = document.getElementById('events');
+                if (target) {
+                    window.scrollTo({
+                        top: target.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            }, 3200);
+        }
+
+        // --- COUNTDOWN TO FEB 9 ---
+        function updateCountdown() {
+            const targetDate = new Date('2026-02-09T00:00:00');
+            const now = new Date();
+            const diff = targetDate - now;
+
+            const daysEl = document.getElementById('days');
+            const hoursEl = document.getElementById('hours');
+            const minutesEl = document.getElementById('minutes');
+            const secondsEl = document.getElementById('seconds');
+
+            if (!daysEl) return;
+
+
+            if (diff <= 0) {
+                daysEl.textContent = '00';
+                hoursEl.textContent = '00';
+                minutesEl.textContent = '00';
+                secondsEl.textContent = '00';
+                return;
+            }
+
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+            daysEl.textContent = String(days).padStart(2, '0');
+            hoursEl.textContent = String(hours).padStart(2, '0');
+            minutesEl.textContent = String(minutes).padStart(2, '0');
+            secondsEl.textContent = String(seconds).padStart(2, '0');
+        }
+
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        window.onload = () => {
+            // Basic inits
+            resize();
+            initParticles();
+            animate();
+            setupGallery();
+            updateCountdown();
+
+            // Draw strings specifically
+            setTimeout(drawStrings, 200);
+
+            // Check for 'visited' flag to manage Intro
+            const hasVisited = sessionStorage.getItem('visited');
+
+            if (hasVisited === 'true') {
+                // If already visited, remove intro overlay immediately
+                const overlay = document.querySelector('.hero'); // Assuming hero is the "intro" or we skip TO it
+                const target = document.getElementById('events');
+
+                // If we want to skip the "Enter Rift" animation part:
+                // We can't easily "remove" the hero without breaking layout, 
+                // but we can scroll past it or hide the "Enter Rift" button and show content.
+                // Based on previous logic, we simply scrolled to content.
+                if (target) {
+                    setTimeout(() => {
+                        window.scrollTo({
+                            top: target.offsetTop - 80,
+                            behavior: 'auto'
+                        });
+                    }, 50);
+                }
+            } else {
+                // First time visit in this session
+                sessionStorage.setItem('visited', 'true');
+            }
+        };
+
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+
+<style>
+    @keyframes floatUp {
+        from {
+            transform: translateY(50px);
+            opacity: 0;
+        }
+
+        to {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+
+    /* --- RIFT PORTAL TRANSITION --- */
+    .rift-portal {
+        /* Positioned via JS */
+        position: absolute;
+        transform: translate(-50%, -50%) scale(0);
+        width: 10px;
+        height: 10px;
+        background: radial-gradient(circle, #ff0000 20%, #800000 40%, #000 80%);
+        box-shadow: 0 0 20px #f00, 0 0 100px #500;
+        z-index: 10000;
+        border-radius: 50%;
+        transition: transform 1.8s ease-in;
+        pointer-events: none;
+    }
+
+    .rift-portal.active {
+        /* Scale 300 ensure screen coverage */
+        transform: translate(-50%, -50%) scale(300);
+        opacity: 1;
+    }
+</style>
+
+<script>
+    // --- RIFT TRANSITION LOGIC ---
+    function openRift(btn, url) {
+        // 1. Calculate center relative to Viewport
+        const rect = btn.getBoundingClientRect();
+
+        // 2. Adjust for Scroll for Absolute Positioning
+        const scrollLeft = window.scrollX || document.documentElement.scrollLeft;
+        const scrollTop = window.scrollY || document.documentElement.scrollTop;
+
+        const absoluteX = rect.left + scrollLeft + rect.width / 2;
+        const absoluteY = rect.top + scrollTop + rect.height / 2;
+
+        // 3. Create Portal attached to BODY
+        const portal = document.createElement('div');
+        portal.className = 'rift-portal';
+        portal.style.left = absoluteX + 'px';
+        portal.style.top = absoluteY + 'px';
+        document.body.appendChild(portal);
+
+        // 4. Zoom Effect on Body
+        // Transform Origin matches the portal center
+        document.body.style.transformOrigin = `${absoluteX}px ${absoluteY}px`;
+        document.body.style.transition = 'transform 2s ease-in';
+        document.body.style.transform = 'scale(5)';
+        document.body.style.overflow = 'hidden';
+
+        // 5. Force Reflow & Activate
+        void portal.offsetWidth;
+        portal.classList.add('active');
+
+        // 6. Redirect
+        setTimeout(() => {
+            window.location.href = url;
+        }, 1800);
+    }
+</script>
+
+</html>

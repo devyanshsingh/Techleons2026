@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration | Techleons 2026</title>
+    <style>
+        /* --- IMPORTS & VARIABLES --- */
+        @import url('https://fonts.googleapis.com/css2?family=Creepster&family=Courier+Prime:wght@400;700&family=Rubik+Glitch&family=Grenze:ital,wght@0,700;0,800;1,700&display=swap');
+
+        :root {
+            --stranger-red: #ff1212;
+            --neon-blue: #00f7ff;
+            --void-black: #050505;
+            --smoke: #131313;
+            --dust-white: rgba(220, 220, 220, 0.6);
+            --crt-green: rgba(18, 255, 18, 0.1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html,
+        body {
+            cursor: none;
+            height: 100%;
+        }
+
+        body {
+            background-color: var(--void-black);
+            color: #dcdcdc;
+            font-family: 'Courier Prime', monospace;
+            overflow-x: hidden;
+            background-image: radial-gradient(circle at 50% 50%, #1a0000 0%, #050505 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* --- MIND FLAYER CURSOR --- */
+        #mindflayer-cursor {
+            position: fixed;
+            pointer-events: none;
+            z-index: 9998;
+            left: 0;
+            top: 0;
+            width: 120px;
+            height: 120px;
+            margin-left: -60px;
+            margin-top: -60px;
+            transform: translate(var(--cursor-x, 0px), var(--cursor-y, 0px));
+            transition: none;
+            will-change: transform;
+        }
+
+        .cursor-particle {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 6px;
+            height: 6px;
+            margin-left: -3px;
+            margin-top: -3px;
+            background: radial-gradient(circle, rgba(80, 20, 20, 0.9) 0%, rgba(20, 5, 5, 0.6) 50%, transparent 70%);
+            border-radius: 50%;
+            filter: blur(1px);
+            animation: mindflayerSwirl 4s ease-in-out infinite;
+            box-shadow: 0 0 8px rgba(40, 10, 10, 0.5);
+        }
+
+        .cursor-particle:nth-child(1) {
+            animation-delay: 0s;
+            --angle: 0deg;
+        }
+
+        .cursor-particle:nth-child(2) {
+            animation-delay: 0.3s;
+            --angle: 30deg;
+        }
+
+        .cursor-particle:nth-child(3) {
+            animation-delay: 0.6s;
+            --angle: 60deg;
+        }
+
+        .cursor-particle:nth-child(4) {
+            animation-delay: 0.9s;
+            --angle: 90deg;
+        }
+
+        .cursor-particle:nth-child(5) {
+            animation-delay: 1.2s;
+            --angle: 120deg;
+        }
+
+        .cursor-particle:nth-child(6) {
+            animation-delay: 1.5s;
+            --angle: 150deg;
+        }
+
+        .cursor-particle:nth-child(7) {
+            animation-delay: 1.8s;
+            --angle: 180deg;
+        }
+
+        .cursor-particle:nth-child(8) {
+            animation-delay: 2.1s;
+            --angle: 210deg;
+        }
+
+        @keyframes mindflayerSwirl {
+
+            0%,
+            100% {
+                transform: rotate(var(--angle, 0deg)) translateX(35px) rotate(calc(-1 * var(--angle, 0deg)));
+                opacity: 0.9;
+            }
+
+            50% {
+                transform: rotate(calc(var(--angle, 0deg) + 180deg)) translateX(40px) rotate(calc(-1 * var(--angle, 0deg) - 180deg));
+                opacity: 0.95;
+            }
+        }
+
+        .cursor-core {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 8px;
+            height: 8px;
+            margin-left: -4px;
+            margin-top: -4px;
+            background: rgba(255, 18, 18, 0.4);
+            border-radius: 50%;
+            box-shadow: 0 0 15px rgba(255, 18, 18, 0.5);
+            animation: corePulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes corePulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+                opacity: 0.6;
+            }
+
+            50% {
+                transform: scale(1.3);
+                opacity: 1;
+            }
+        }
+
+        @media (hover: none) and (pointer: coarse) {
+
+            html,
+            body {
+                cursor: auto;
+            }
+
+            #mindflayer-cursor {
+                display: none;
+            }
+        }
+
+        /* --- CRT EFFECT OVERLAY --- */
+        body::before {
+            content: " ";
+            display: block;
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%),
+                linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            z-index: 999;
+            background-size: 100% 2px, 3px 100%;
+            pointer-events: none;
+        }
+
+        /* --- CONTAINER --- */
+        .container {
+            width: 100%;
+            max-width: 800px;
+            padding: 2rem;
+            margin: 2rem 0;
+            z-index: 10;
+        }
+
+        /* --- HEADER --- */
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .glow-text {
+            font-family: 'Grenze', serif;
+            font-size: 3rem;
+            color: transparent;
+            -webkit-text-stroke: 1.5px var(--stranger-red);
+            text-shadow:
+                0 0 10px rgba(255, 18, 18, 0.8),
+                0 0 20px rgba(255, 18, 18, 0.4);
+            animation: flicker 4s infinite alternate;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        @keyframes flicker {
+
+            0%,
+            19%,
+            21%,
+            23%,
+            25%,
+            54%,
+            56%,
+            100% {
+                text-shadow: 0 0 5px rgba(255, 18, 18, 0.8), 0 0 10px rgba(255, 18, 18, 0.4);
+            }
+
+            20%,
+            24%,
+            55% {
+                text-shadow: none;
+            }
+        }
+
+        /* --- FORM STYLES --- */
+        .registration-form {
+            background: rgba(10, 10, 10, 0.85);
+            border: 2px solid #333;
+            padding: 3rem;
+            position: relative;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.8);
+        }
+
+        .registration-form::before {
+            content: 'TOP SECRET // SQUAD RECRUITMENT FORM';
+            position: absolute;
+            top: -12px;
+            left: 20px;
+            background: var(--void-black);
+            padding: 0 10px;
+            color: var(--stranger-red);
+            font-size: 0.8rem;
+            letter-spacing: 3px;
+        }
+
+        .form-group {
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.8rem;
+            color: var(--neon-blue);
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .form-control {
+            width: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid #444;
+            padding: 1rem;
+            color: #fff;
+            font-family: 'Courier Prime', monospace;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--stranger-red);
+            box-shadow: 0 0 15px rgba(255, 18, 18, 0.2);
+            background: rgba(255, 18, 18, 0.05);
+        }
+
+        select.form-control {
+            appearance: none;
+            cursor: pointer;
+        }
+
+        select.form-control option {
+            background: #111;
+            color: #dcdcdc;
+            padding: 10px;
+        }
+
+        /* --- INSTRUCTIONS BOX --- */
+        .instructions-box {
+            border: 1px dashed #666;
+            background: rgba(20, 20, 20, 0.5);
+            padding: 1.5rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .instructions-box h4 {
+            color: var(--stranger-red);
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 1rem;
+        }
+
+        .instructions-box ul {
+            list-style-type: square;
+            margin-left: 1.5rem;
+            color: #aaa;
+        }
+
+        .instructions-box li {
+            margin-bottom: 0.5rem;
+            line-height: 1.6;
+        }
+
+        /* --- BUTTON --- */
+        .btn-submit {
+            width: 100%;
+            padding: 1.2rem;
+            background: transparent;
+            border: 2px solid var(--stranger-red);
+            color: var(--stranger-red);
+            font-family: 'Courier Prime', monospace;
+            font-weight: bold;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        .btn-submit:hover {
+            background: var(--stranger-red);
+            color: #000;
+            box-shadow: 0 0 30px var(--stranger-red);
+        }
+
+        .btn-submit:active {
+            transform: scale(0.98);
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 2rem;
+            color: #666;
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            transition: 0.3s;
+        }
+
+        .back-link:hover {
+            color: var(--neon-blue);
+            border-bottom-color: var(--neon-blue);
+        }
+    </style>
+</head>
+
+<body>
+
+    <canvas id="spore-canvas"
+        style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0;"></canvas>
+
+    <div id="mindflayer-cursor">
+        <div class="cursor-particle"></div>
+        <div class="cursor-particle"></div>
+        <div class="cursor-particle"></div>
+        <div class="cursor-particle"></div>
+        <div class="cursor-particle"></div>
+        <div class="cursor-particle"></div>
+        <div class="cursor-particle"></div>
+        <div class="cursor-particle"></div>
+        <div class="cursor-core"></div>
+    </div>
+
+    <div class="container">
+        <header class="header">
+            <h1 class="glow-text">Squad Registration</h1>
+            <p style="letter-spacing: 3px; color: #888; margin-top: 10px;">ENTER YOUR DETAILS TO JOIN THE FIGHT</p>
+        </header>
+
+        <form class="registration-form" id="regForm">
+
+            <div class="form-group">
+                <label for="squad">Select Squad Group</label>
+                <select id="squad" name="squad" class="form-control" required>
+                    <option value="" disabled selected>-- CHOOSE ALLEGIANCE --</option>
+                    <option value="1">Group 01: The Hellfire Club</option>
+                    <option value="2">Group 02: Scoops Troop</option>
+                    <option value="3">Group 03: Hawkins A.V. Club</option>
+                    <option value="4">Group 04: Griswold Family</option>
+                    <option value="5">Group 05: The Party</option>
+                    <option value="6">Group 06: Demogorgon Hunters</option>
+                    <option value="7">Group 07: Bald Eagle's Nest</option>
+                    <option value="8">Group 08: Palace Arcade Pros</option>
+                    <option value="9">Group 09: Starcourt Mall Rats</option>
+                    <option value="10">Group 10: Upside Down Explorers</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="reg-number">Register Number</label>
+                <input type="text" id="reg-number" name="reg-number" class="form-control" placeholder="REQ: 22BCA..."
+                    required>
+            </div>
+
+            <div class="form-group">
+                <label for="full-name">Full Name</label>
+                <input type="text" id="full-name" name="full-name" class="form-control" placeholder="ENTER NAME"
+                    required>
+            </div>
+
+            <div class="form-group">
+                <label for="class-section">Class / Section</label>
+                <input type="text" id="class-section" name="class-section" class="form-control"
+                    placeholder="e.g. 4BCA A" required>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email Frequency</label>
+                <input type="email" id="email" name="email" class="form-control" placeholder="transmit@domain.com"
+                    required>
+            </div>
+
+            <div class="instructions-box">
+                <h4>// MISSION PROTOCOLS //</h4>
+                <ul>
+                    <li>Ensure all data is accurate before transmission.</li>
+                    <li>Double-check your Squad Selection. Transfers are unauthorized.</li>
+                    <li>Wait for the encrypted confirmation signal sent to your Email Frequency.</li>
+                    <li>Report to the designated rally point upon acceptance.</li>
+                </ul>
+            </div>
+
+            <button type="submit" class="btn-submit">Initiate Transfer</button>
+
+        </form>
+
+        <div style="position: fixed; top: 20px; right: 20px; z-index: 2000;">
+            <button id="btn-return" class="btn-submit"
+                style="border-color: rgba(136, 136, 136, 0.5); color: rgba(170, 170, 170, 0.7); font-size: 0.8rem; padding: 0.8rem 1.2rem; width: auto; background: rgba(0,0,0,0.6); backdrop-filter: blur(4px); transition: all 0.3s ease;">
+                &lt; RETURN TO HAWKINS
+            </button>
+        </div>
+    </div>
+
+    <script>
+        const btnReturn = document.getElementById('btn-return');
+        btnReturn.addEventListener('click', function () {
+            window.location.href = 'websitemockup.html';
+        });
+
+        // Hover effects for the floating button
+        btnReturn.addEventListener('mouseenter', () => {
+            btnReturn.style.color = 'var(--stranger-red)';
+            btnReturn.style.borderColor = 'var(--stranger-red)';
+            btnReturn.style.boxShadow = '0 0 15px rgba(255, 18, 18, 0.3)';
+        });
+        btnReturn.addEventListener('mouseleave', () => {
+            btnReturn.style.color = 'rgba(170, 170, 170, 0.7)';
+            btnReturn.style.borderColor = 'rgba(136, 136, 136, 0.5)';
+            btnReturn.style.boxShadow = 'none';
+        });
+    </script>
+    </div>
+
+    <script>
+        /* --- SPORE PARTICLE SYSTEM --- */
+        const canvas = document.getElementById('spore-canvas');
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const spores = [];
+        const sporeCount = 100;
+
+        class Spore {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.vx = (Math.random() - 0.5) * 0.5;
+                this.vy = (Math.random() - 0.5) * 0.5;
+                this.size = Math.random() * 2;
+                this.alpha = Math.random() * 0.5 + 0.1;
+            }
+
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+
+                if (this.x < 0) this.x = canvas.width;
+                if (this.x > canvas.width) this.x = 0;
+                if (this.y < 0) this.y = canvas.height;
+                if (this.y > canvas.height) this.y = 0;
+            }
+
+            draw() {
+                ctx.fillStyle = `rgba(255, 255, 255, ${this.alpha})`;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        for (let i = 0; i < sporeCount; i++) {
+            spores.push(new Spore());
+        }
+
+        function animateSpores() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear but keep gradient background
+            // Assuming background is set on body
+            ctx.fillStyle = 'rgba(0, 0, 0, 0)'; // Transparent
+
+            spores.forEach(spore => {
+                spore.update();
+                spore.draw();
+            });
+            requestAnimationFrame(animateSpores);
+        }
+
+        animateSpores();
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        /* --- FORM SUBMISSION --- */
+        document.getElementById('regForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+
+            const formData = new FormData(this);
+            const data = Object.fromEntries(formData.entries());
+            const btn = this.querySelector('button[type="submit"]');
+            const originalText = btn.innerText;
+
+            btn.innerText = "TRANSMITTING...";
+            btn.disabled = true;
+
+            try {
+                const response = await fetch('/submit-registration', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    alert('SUCCESS: ' + result.message);
+                    this.reset();
+                } else {
+                    alert('ERROR: ' + result.message);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('TRANSMISSION FAILURE: COMPROMISED CONNECTION');
+            } finally {
+                btn.innerText = originalText;
+                btn.disabled = false;
+            }
+        });
+
+        /* --- CURSOR SCRIPT --- */
+        const cursor = document.getElementById('mindflayer-cursor');
+        let mouseX = 0, mouseY = 0;
+        let cursorX = 0, cursorY = 0;
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        });
+
+        function animateCursor() {
+            const dx = mouseX - cursorX;
+            const dy = mouseY - cursorY;
+
+            cursorX += dx * 0.15;
+            cursorY += dy * 0.15;
+
+            cursor.style.setProperty('--cursor-x', `${cursorX}px`);
+            cursor.style.setProperty('--cursor-y', `${cursorY}px`);
+
+            requestAnimationFrame(animateCursor);
+        }
+
+        animateCursor();
+
+        /* --- ELEMENT INTERACTION --- */
+        const interactiveElements = document.querySelectorAll('a, button, input, select');
+
+        interactiveElements.forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                const particles = document.querySelectorAll('.cursor-particle');
+                particles.forEach(p => p.style.background = 'radial-gradient(circle, rgba(0, 247, 255, 0.9) 0%, rgba(0, 100, 100, 0.6) 50%, transparent 70%)');
+            });
+
+            el.addEventListener('mouseleave', () => {
+                const particles = document.querySelectorAll('.cursor-particle');
+                particles.forEach(p => p.style.background = '');
+            });
+        });
+    </script>
+</body>
+
+</html>
