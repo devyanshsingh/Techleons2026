@@ -38,7 +38,7 @@ const db = new sqlite3.Database('./registrations.db', (err) => {
 // Routes
 // Serve the main page
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'websitemockup.html'));
+    res.sendFile(path.join(__dirname, 'index.html'));
 });
 
 // Handle registration submission
